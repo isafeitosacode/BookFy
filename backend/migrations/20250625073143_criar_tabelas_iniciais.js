@@ -7,20 +7,21 @@ exports.up = function(knex) {
   return knex.schema.createTable('Livros', function(table) {
     table.increments('id_livro').primary();
     table.string('google_book_id').notNullable().unique();
-    table.string('titulo').notNullable();
-    table.jsonb('autores'); // Usar jsonb para armazenar a lista de autores
-    table.string('capa_url');
+    table.text('titulo').notNullable();
+    table.jsonb('autores'); 
+    table.text('capa_url');
     table.text('descricao');
   })
+
   // Cria a tabela de Estantes
   .createTable('Estantes', function(table) {
     table.increments('id_estante').primary();
     table.string('nome').notNullable();
   })
-  // Cria a tabela de associação (a tabela do problema)
+
+  // Cria a tabela de associação 
   .createTable('Livros_Estante', function(table) {
-    // AQUI ESTÁ A ESTRUTURA CORRETA E FINAL:
-    table.increments('id_associacao').primary(); // Chave primária única e simples
+    table.increments('id_associacao').primary(); 
     
     // Chave estrangeira para Livros
     table.string('id_livro_fk').notNullable().references('google_book_id').inTable('Livros').onDelete('CASCADE');
