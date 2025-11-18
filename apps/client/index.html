@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookFy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="auth-view" class="auth-container hidden">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <i class="fa-solid fa-book-open"></i>
+                <h1>BookFy</h1>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-link active" data-tab="login-tab">Entrar</button>
+                <button class="auth-tab-link" data-tab="register-tab">Cadastrar</button>
+            </div>
+
+            <div id="login-tab" class="auth-content active">
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email ou Username</label>
+                        <input type="text" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Senha</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="auth-button">Entrar</button>
+                    <p id="login-error" class="auth-error hidden"></p>
+                </form>
+            </div>
+
+            <div id="register-tab" class="auth-content">
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="reg-username">Username</label>
+                            <div class="input-with-at">
+                                <span class="at-symbol">@</span>
+                                    <input type="text" id="reg-username" placeholder="seu-usuario" required>                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Senha</label>
+                        <input type="password" id="reg-password" required>
+                    </div>
+
+                    <div class="form-group">
+                <label for="reg-pref-1">Preferência Literária 1</label>
+                <select id="reg-pref-1" class="auth-select">
+                    <option value="subject:science+fiction">Ficção Científica</option>
+                    <option value="subject:fantasy">Fantasia</option>
+                    <option value="subject:romance">Romance</option>
+                    <option value="subject:mystery">Mistério</option>
+                    <option value="subject:history">História</option>
+                    <option value="subject:software+development">Programação</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-pref-2">Preferência Literária 2</label>
+                <select id="reg-pref-2" class="auth-select">
+                    <option value="subject:horror">Terror</option>
+                    <option value="subject:biography">Biografia</option>
+                    <option value="subject:cooking">Culinária</option>
+                    <option value="subject:psychology">Psicologia</option>
+                    <option value="inauthor:stephen+king">Stephen King</option>
+                    <option value="subject:art">Arte</option>
+                </select>
+            </div>
+                    <button type="submit" class="auth-button">Cadastrar</button>
+                    <p id="register-error" class="auth-error hidden"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<div class="app-layout">
+        <nav class="sidebar">
+            <a href="#" class="sidebar-logo">
+                <i class="fa-solid fa-book-open"></i>
+            </a>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="menu-link active" data-view="home-view"><i class="fa-solid fa-house"></i> <span>Início</span></a></li>
+                <li><a href="#" class="menu-link" data-view="search-view"><i class="fa-solid fa-magnifying-glass"></i> <span>Buscar Livros</span></a></li>
+                <li><a href="#" class="menu-link" data-view="profile-view">
+                        <img id="foto-de-perfil" src="./assets/icon-padrao-user.png" alt="Foto de Perfil do Usuário"> 
+    <span>Meu Perfil</span>
+</a></li>
+            </ul>
+            <div class="sidebar-shelves">
+                <h3 class="shelves-title">MINHAS ESTANTES</h3>
+                <ul id="shelves-list">
+                    </ul>
+                <button id="add-shelf-btn"><i class="fa-solid fa-plus"></i> Nova Estante</button>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="menu-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sair</span></button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <section id="home-view" class="view">
+                <div class="view-header">
+                    <h1>Início</h1>
+                </div>
+                <div id="home-books-grid" class="book-grid">
+                    </div>
+            </section>
+            <section id="search-view" class="view hidden">
+                <div class="search-header">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Busque por título, autor ou gênero...">
+                </div>
+                <div id="searchResults" class="book-grid"></div>
+            </section>
+            <section id="shelf-view" class="view hidden">
+                <div class="view-header">
+                    <h1 id="shelf-title"></h1>
+                </div>
+                <div id="shelf-books" class="book-grid"></div>
+            </section>
+            <section id="detail-view" class="view hidden">
+                <div class="view-header">
+                    <button id="detail-back-to-shelf-btn" class="btn-link hidden">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span id="back-to-shelf-name">Voltar para a Estante</span>
+                    </button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-left">
+                        <h1 id="detail-title"></h1>
+                        <p class="detail-author">Por <span id="detail-author-name"></span></p>
+                        <div class="detail-status-section hidden">
+                            <span>Status:</span>
+                            <strong id="detail-current-status">Nenhum</strong>
+                            <button id="detail-change-status-btn" class="btn-link-small"><i class="fa-solid fa-pencil"></i> Alterar</button>
+                        </div>
+                        <p id="detail-description"></p>
+                        <div class="detail-actions">
+                            <button id="detail-add-to-shelf-btn"><i class="fa-solid fa-plus"></i> Adicionar à Estante</button>
+                            <button id="detail-remove-from-shelf-btn" class="btn-danger hidden"><i class="fa-solid fa-trash-can"></i> Remover da Estante</button>
+                        </div>
+                    </div>
+                    <div class="detail-right">
+                        <img id="detail-cover" src="" alt="Capa do livro">
+                    </div>
+                </div>
+                <div class="similar-books">
+                    <h2>Mais Livros Similares</h2>
+                    <div id="similar-books-grid" class="book-grid"></div>
+                </div>
+            </section>
+
+            <section id="profile-view" class="view hidden">
+                <div class="view-header">
+                    <h1>Meu Perfil</h1>
+                </div>
+
+                <div class="profile-content">
+                    <form id="profile-form">
+                        <div class="profile-form-group">
+                            <label for="profile-nome">Nome</label>
+                            <input type="text" id="profile-nome" placeholder="Como você quer ser chamado?">
+                        </div>
+                        <div class="profile-form-group">
+                            <label for="profile-foto">URL da Foto de Perfil</label>
+                            <input type="text" id="profile-foto" placeholder="http://... (link para sua foto)">
+                        </div>
+                        <div class="profile-form-group">
+                            <label for="profile-bio">Biografia</label>
+                            <textarea id="profile-bio" rows="4" placeholder="Fale um pouco sobre você..."></textarea>
+                        </div>
+
+                        <button type="submit" class="auth-button">Salvar Alterações</button>
+                    </form>
+
+                    <div class="profile-danger-zone">
+                        <h2>Zona de Perigo</h2>
+                        <p>Esta ação não pode ser desfeita. Isso excluirá permanentemente sua conta.</p>
+                        <button id="delete-account-btn" class="btn-danger">Excluir Minha Conta</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="add-to-shelf-modal" class="modal-wrapper hidden">
+        <div class="modal-content">
+            <h3>Adicionar à Estante</h3>
+            <p>Selecione uma estante para adicionar <strong id="modal-book-title"></strong>:</p>
+            <select id="modal-shelf-select">
+            </select>
+            <p>Defina um status inicial para este livro:</p>
+            <select id="modal-status-select">
+                <option value="Quero Ler">Quero Ler</option>
+                <option value="Lendo">Lendo</option>
+                <option value="Lido">Lido</option>
+            </select>
+            <div class="modal-actions">
+                <button id="modal-cancel-btn">Cancelar</button>
+                <button id="modal-confirm-add-btn">Adicionar</button>
+            </div>
+        </div>
+    </div>
+    <div id="change-status-modal" class="modal-wrapper hidden">
+        <div class="modal-content">
+            <h3>Alterar Status de Leitura</h3>
+            <p>Qual o status de <strong id="status-modal-book-title"></strong>?</p>
+            <select id="status-modal-select-update">
+                <option value="Quero Ler">Quero Ler</option>
+                <option value="Lendo">Lendo</option>
+                <option value="Lido">Lido</option>
+            </select>
+            <div class="modal-actions">
+                <button id="status-modal-cancel-btn">Cancelar</button>
+                <button id="status-modal-confirm-btn">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js" type="module"></script>
+</body>
+</html>

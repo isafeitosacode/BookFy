@@ -1,0 +1,26 @@
+{
+  "name": "livraria",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Meu projeto de livraria com frontend e backend",
+
+  "scripts": {
+    "start:server": "pnpm --filter server start",
+    "dev:server": "pnpm --filter server dev",
+    "migrate:server": "pnpm --filter server migrate"
+  },
+
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "pg": "^8.16.2"
+  },
+
+  "devDependencies": {
+    "nodemon": "^3.0.1" 
+  }
+}
