@@ -13,9 +13,8 @@ Uma biblioteca digital moderna que consome a **API de Livros do Google** para bu
 
 ---
 
-## 🔗 Acesse o projeto
 
-👉 [livraria-site.onrender.com](https://livraria-site.onrender.com/)
+
 
 ---
 
