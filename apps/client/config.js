@@ -11,5 +11,5 @@ const isProduction = window.location.hostname.includes('onrender.com');
 const apiBaseUrl = (isProduction ? environments.production : environments.development).apiUrl;
 
 
-export const API_BASE_URL = 'https://bookfy.onrender.com/api';
+export const API_BASE_URL = 'https://bookfy.onrender.com';
 export const GOOGLE_API_URL = 'https://www.googleapis.com/books/v1/volumes';
