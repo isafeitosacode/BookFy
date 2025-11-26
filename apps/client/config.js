@@ -3,7 +3,7 @@ const environments = {
     apiUrl: 'http://localhost:3000/api'
   },
   production: {
-    apiUrl: 'https://livraria-api-phg1.onrender.com/api'
+    apiUrl: 'https://bookfy.onrender.com/api'
   }
 };
 
